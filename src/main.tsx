@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { BrowserRouter, createBrowserRouter, RouterProvider } from 'react-router-dom';
 //
 import App from './App';
 import { NotFound } from './pages/NotFound';
@@ -30,7 +30,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>
-		<App />
-		<RouterProvider router={router} />
+		<BrowserRouter basename={process.env.PUBLIC_URL}>
+			<App />
+			<RouterProvider router={router} />
+		</BrowserRouter>
 	</React.StrictMode>,
 );
