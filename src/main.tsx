@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { BrowserRouter, createBrowserRouter, HashRouter, RouterProvider } from 'react-router-dom';
 //
 import App from './App';
 import { NotFound } from './pages/NotFound';
@@ -36,9 +36,11 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>
-		<HelmetProvider>
-			<App />
-			<RouterProvider router={router} />
-		</HelmetProvider>
+		<HashRouter>
+			<HelmetProvider>
+				<App />
+				<RouterProvider router={router} />
+			</HelmetProvider>
+		</HashRouter>
 	</React.StrictMode>,
 );
