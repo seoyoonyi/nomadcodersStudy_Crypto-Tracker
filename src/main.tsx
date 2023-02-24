@@ -10,24 +10,29 @@ import { Price } from './pages/Price';
 import { Chart } from './pages/Chart';
 import { HelmetProvider } from 'react-helmet-async';
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+	[
+		{
+			path: 'nomadcoderChallenge_Crypto-Tracker/',
+			element: <App />,
+			errorElement: <NotFound />,
+			children: [
+				{ index: true, element: <Home /> },
+				{
+					path: 'coin/:coinId',
+					element: <Coin />,
+					children: [
+						{ path: 'price', element: <Price /> },
+						{ path: 'chart', element: <Chart /> },
+					],
+				},
+			],
+		},
+	],
 	{
-		path: 'nomadcoderChallenge_Crypto-Tracker/',
-		element: <App />,
-		errorElement: <NotFound />,
-		children: [
-			{ index: true, element: <Home /> },
-			{
-				path: 'coin/:coinId',
-				element: <Coin />,
-				children: [
-					{ path: 'price', element: <Price /> },
-					{ path: 'chart', element: <Chart /> },
-				],
-			},
-		],
+		basename: process.env.PUBLIC_URL,
 	},
-]);
+);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>
