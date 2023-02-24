@@ -8,11 +8,9 @@ export const useTheme = () => {
 		if (ThemeMode === 'light') {
 			setThemeMode('dark');
 			window.localStorage.setItem('theme', 'dark');
-			console.log('다크로 되어라');
 		} else {
 			setThemeMode('light');
 			window.localStorage.setItem('theme', 'light');
-			console.log('라이트로 되어라');
 		}
 	}, [ThemeMode]);
 

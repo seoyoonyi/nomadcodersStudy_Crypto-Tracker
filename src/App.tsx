@@ -1,13 +1,14 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Outlet } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
+import { Helmet } from 'react-helmet-async';
 //
 
 import './App.css';
 import { SwitchThemeProvider } from './context/SwitchThemeProvider';
 
 const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -73,6 +74,15 @@ const App = () => {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<SwitchThemeProvider>
+				<Helmet>
+					<title>Hi! This is Test!</title>
+					<link rel="preconnect" href="https://fonts.googleapis.com" />
+					{/* <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" /> */}
+					<link
+						href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap"
+						rel="stylesheet"
+					/>
+				</Helmet>
 				<GlobalStyle />
 				<Outlet />
 			</SwitchThemeProvider>

@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
+import { HelmetProvider } from 'react-helmet-async';
 import { useQuery } from 'react-query';
+
 import { useParams, Link, Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchCoinInfo, fetchCoinTickers } from '../api/api';
