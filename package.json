@@ -5,9 +5,9 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
-		"build": "vite build",
+		"build": "tsc && vite build",
 		"predeploy": "yarn build",
-		"deploy": "yarn build && git add dist -f && git commit -m'hosting' && git subtree push --prefix dist origin gh-pages"
+		"deploy": "gh-pages -d public"
 	},
 	"dependencies": {
 		"@types/node": "^18.14.1",
