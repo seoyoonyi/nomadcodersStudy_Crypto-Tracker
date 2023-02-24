@@ -7,7 +7,7 @@
 		"dev": "vite",
 		"build": "vite build",
 		"predeploy": "yarn build",
-		"deploy": "gh-pages -d public"
+		"deploy": "yarn build && git add dist -f && git commit -m'hosting' && git subtree push --prefix dist origin gh-pages"
 	},
 	"dependencies": {
 		"@types/node": "^18.14.1",
