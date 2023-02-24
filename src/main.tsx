@@ -12,7 +12,7 @@ import { HelmetProvider } from 'react-helmet-async';
 
 const router = createBrowserRouter([
 	{
-		path: 'nomadcoderChallenge_Crypto-Tracker/',
+		path: '/',
 		element: <App />,
 		errorElement: <NotFound />,
 		children: [
