@@ -30,7 +30,7 @@ const router = createBrowserRouter(
 		},
 	],
 	{
-		basename: '/nomadcoderChallenge_Crypto-Tracker',
+		basename: import.meta.env.BASE_URL,
 	},
 );
 
