@@ -1,12 +1,10 @@
-import { createContext, useContext, useState } from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Outlet } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 //
 
 import './App.css';
 import { SwitchThemeProvider } from './context/SwitchThemeProvider';
-import { useTheme } from './hooks/use-theme';
-import { darkTheme, lightTheme } from './utils/theme';
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
@@ -71,11 +69,14 @@ a {
 }
 `;
 const App = () => {
+	const queryClient = new QueryClient();
 	return (
-		<SwitchThemeProvider>
-			<GlobalStyle />
-			<Outlet />
-		</SwitchThemeProvider>
+		<QueryClientProvider client={queryClient}>
+			<SwitchThemeProvider>
+				<GlobalStyle />
+				<Outlet />
+			</SwitchThemeProvider>
+		</QueryClientProvider>
 	);
 };
 
