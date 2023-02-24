@@ -7,7 +7,7 @@
 		"dev": "vite",
 		"build": "vite build",
 		"predeploy": "yarn build",
-		"deploy": "gh-pages -d build"
+		"deploy": "gh-pages -d public"
 	},
 	"dependencies": {
 		"@types/node": "^18.14.1",
