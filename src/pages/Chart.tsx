@@ -3,8 +3,17 @@ import ApexChart from 'react-apexcharts';
 
 import { useOutletContext, useParams } from 'react-router-dom';
 import { fetchCoinHistory } from '../api/api';
+import { Loader } from '../components/Coins';
+import styled from 'styled-components';
 
-interface IHistorical {
+const ChartItem = styled.div`
+	margin-top: 10px;
+	border-radius: 4px;
+	background-color: rgba(0, 0, 0, 0.1);
+`;
+
+export interface IHistorical {
+	low: number;
 	time_open: string;
 	time_close: number;
 	open: number;
@@ -28,17 +37,20 @@ export const Chart = () => {
 		},
 	);
 	return (
-		<div>
-			<h2>차트차트!!</h2>
+		<ChartItem>
 			{isLoading ? (
-				'Loading chart...'
+				<Loader>Loading chart...</Loader>
 			) : (
 				<ApexChart
-					type="line"
+					type="candlestick"
 					series={[
 						{
-							name: 'Price',
-							data: data?.map((price) => Number(price.close)) as number[],
+							name: 'sales',
+							data:
+								data?.map(
+									(price) =>
+										[price.time_close, price.open, price.high, price.low, price.close] as number[],
+								) ?? [],
 						},
 					]}
 					options={{
@@ -81,6 +93,6 @@ export const Chart = () => {
 					}}
 				/>
 			)}
-		</div>
+		</ChartItem>
 	);
 };

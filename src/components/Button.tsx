@@ -1,10 +1,18 @@
-import { MouseEventHandler } from 'react';
+import styled from 'styled-components';
+import { darkTheme, lightTheme } from '../utils/theme';
 
 interface ButtonType {
-	text: string;
-	onClick: MouseEventHandler<HTMLButtonElement>;
+	children: React.ReactNode;
+	onClick: () => void;
 }
 
-export const Button = ({ text, onClick }: ButtonType) => {
-	return <button onClick={onClick}>{text}</button>;
+const StyledButton = styled.button`
+	/* 공통 스타일 */
+	outline: none;
+	border: none;
+	cursor: pointer;
+`;
+
+export const Button = ({ children, ...rest }: ButtonType) => {
+	return <StyledButton {...rest}>{children}</StyledButton>;
 };

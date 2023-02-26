@@ -1,52 +1,83 @@
+import { ArrowLeft } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
-import { HelmetProvider } from 'react-helmet-async';
 import { useQuery } from 'react-query';
 
-import { useParams, Link, Outlet } from 'react-router-dom';
+import { useParams, Link, Outlet, LinkProps } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchCoinInfo, fetchCoinTickers } from '../api/api';
+import { Loader } from '../components/Coins';
+import { Container } from '../components/Container';
+import { Header } from '../components/Header';
 
-const Title = styled.h1`
-	font-size: 48px;
-	color: ${(props) => props.theme.colors.titleColor};
+const CoinNav = styled.div`
+	position: relative;
+	margin: 10px 0 30px;
+	display: flex;
+	justify-content: cneter;
 `;
 
-const Loader = styled.span`
-	text-align: center;
-	display: block;
+const IconBox = styled(Link)`
+	position: absolute;
+`;
+
+const CoinTitle = styled.h2`
+	margin: 0 auto;
+	font-size: 25px;
+	text-transform: uppercase;
+	color: ${(props) => props.theme.colors.titleColor};
 `;
 
 const Overview = styled.div`
 	display: flex;
 	justify-content: space-between;
-	background-color: rgba(0, 0, 0, 0.5);
-	padding: 10px 20px;
-	border-radius: 10px;
+	background-color: rgba(0, 0, 0, 0.2);
+	padding: 20px 20px;
+	border-radius: 4px;
 `;
+
 const OverviewItem = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 33%;
+	width: calc(100% / 3);
+	text-transform: uppercase;
 	span:first-child {
 		font-size: 10px;
-		font-weight: 400;
-		text-transform: uppercase;
+		font-weight: lighter;
 		margin-bottom: 5px;
+	}
+`;
+
+const Menu = styled(Overview)`
+	margin-top: 40px;
+	padding: 0px;
+	background-color: transparent;
+`;
+
+const MenuItem = styled(Link)<{ $active?: boolean }>`
+	width: 100%;
+	height: 100%;
+	padding: 10px 10px;
+	border-radius: 4px;
+	background-color: rgba(0, 0, 0, 0.2);
+	color: ${(props) =>
+		props.$active ? props.theme.colors.accentColor : props.theme.colors.titleColor};
+	text-transform: uppercase;
+	& + & {
+		margin-left: 10px;
+	}
+	&:hover {
+		color: ${(props) => props.theme.colors.accentColor};
 	}
 `;
 
 const Description = styled.p`
 	margin: 20px 0px;
+	line-height: 1.3;
+	letter-spacing: -0.1px;
+	word-break: keep-all;
 `;
 
-interface RouteParams {
-	coinId: string;
-}
-interface RouteState {
-	name: string;
-}
 interface InfoData {
 	id: string;
 	name: string;
@@ -102,6 +133,7 @@ interface PriceData {
 }
 
 export const Coin = () => {
+	const [activeIndex, setActiveIndex] = useState<number>(0);
 	const { coinId } = useParams<string>();
 	const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(['info', coinId], () =>
 		fetchCoinInfo(String(coinId)),
@@ -111,15 +143,37 @@ export const Coin = () => {
 		() => fetchCoinTickers(String(coinId)),
 	);
 	const loading = infoLoading || tickersLoading;
+
+	const handleClick = (id: number) => {
+		setActiveIndex(id);
+	};
+
+	const menuItems = [
+		{
+			id: 1,
+			name: 'chart',
+			path: 'chart',
+		},
+		{
+			id: 2,
+			name: 'price',
+			path: 'price',
+		},
+	];
+
 	return (
 		<>
+			<Header />
 			{loading ? (
 				<Loader>Loading...</Loader>
 			) : (
-				<>
-					<h2>코인</h2>
-					<Link to="/">되돌아가기</Link>
-					<Title>{coinId || 'Loading...'}</Title>
+				<Container>
+					<CoinNav>
+						<IconBox to="/">
+							<ArrowLeft />
+						</IconBox>
+						<CoinTitle>{coinId || 'Loading...'}</CoinTitle>
+					</CoinNav>
 
 					<Overview>
 						<OverviewItem>
@@ -147,10 +201,21 @@ export const Coin = () => {
 						</OverviewItem>
 					</Overview>
 
-					<Link to={`price`}>가격</Link>
-					<Link to={`chart`}>차트</Link>
+					<Menu>
+						{menuItems.map((item) => (
+							<MenuItem
+								key={item.id}
+								$active={activeIndex === item.id}
+								onClick={() => handleClick(item.id)}
+								to={item.path}
+							>
+								{item.name}
+							</MenuItem>
+						))}
+					</Menu>
+
 					<Outlet context={{ coinId }} />
-				</>
+				</Container>
 			)}
 		</>
 	);

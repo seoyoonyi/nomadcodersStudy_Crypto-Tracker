@@ -3,18 +3,12 @@ import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchCoins } from '../api/api';
-
-const Container = styled.div`
-	padding: 0px 20px;
-	max-width: 480px;
-	margin: 0 auto;
-`;
+import { Container } from './Container';
 
 const CoinsList = styled.ul``;
 
 const Coin = styled.li`
-	background-color: white;
-	color: ${(props) => props.theme.colors.bgColor};
+	border: 1px solid ${(props) => props.theme.colors.titleColor};
 	border-radius: 15px;
 	margin-bottom: 10px;
 	a {
@@ -25,19 +19,17 @@ const Coin = styled.li`
 	}
 	&:hover {
 		a {
-			color: ${(props) => props.theme.colors.titleColor};
+			color: ${(props) => props.theme.colors.accentColor};
 		}
 	}
 `;
 
-const Title = styled.h1`
-	font-size: 48px;
-	color: ${(props) => props.theme.colors.titleColor};
-`;
-
-const Loader = styled.span`
-	text-align: center;
+export const Loader = styled.span`
 	display: block;
+	text-align: center;
+	padding: 50px 0;
+	font-family: 'Gajraj One', cursive;
+	font-size: 20px;
 `;
 
 const Img = styled.img`
@@ -45,16 +37,6 @@ const Img = styled.img`
 	height: 35px;
 	margin-right: 10px;
 `;
-
-interface CoinInterface {
-	id: string;
-	name: string;
-	symbol: string;
-	rank: number;
-	is_new: boolean;
-	is_active: boolean;
-	type: string;
-}
 
 interface ICoin {
 	id: string;

@@ -60,15 +60,16 @@ table {
   box-sizing: border-box;
 }
 body {
-  font-family: 'Source Sans Pro', sans-serif;
+	font-family: 'Roboto', sans-serif;
   background-color:${(props) => props.theme.colors.bgColor};
-  color:${(props) => props.theme.colors.titleColor}}
+  color:${(props) => props.theme.colors.titleColor};
 }
 a {
   text-decoration:none;
   color:inherit;
 }
 `;
+
 const App = () => {
 	const queryClient = new QueryClient();
 	return (
@@ -76,12 +77,10 @@ const App = () => {
 			<SwitchThemeProvider>
 				<Helmet>
 					<title>Hi! This is Test!</title>
-					<link rel="preconnect" href="https://fonts.googleapis.com" />
-					{/* <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" /> */}
-					<link
-						href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap"
-						rel="stylesheet"
-					/>
+					<style>
+						@import
+						url('https://fonts.googleapis.com/css2?family=Gajraj+One&family=Roboto:wght@400;700&display=swap');
+					</style>
 				</Helmet>
 				<GlobalStyle />
 				<Outlet />

@@ -8,8 +8,6 @@ export const Home = () => {
 	return (
 		<>
 			<Header />
-			<p>안녕하세요 코인입니다!!!</p>
-			<hr />
 			<Coins />
 		</>
 	);
