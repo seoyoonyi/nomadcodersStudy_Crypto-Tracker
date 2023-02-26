@@ -1,5 +1,6 @@
 import { ArrowLeft } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { useQuery } from 'react-query';
 
 import { useParams, Link, Outlet, LinkProps } from 'react-router-dom';
@@ -164,6 +165,9 @@ export const Coin = () => {
 	return (
 		<>
 			<Header />
+			<Helmet>
+				<title>{coinId}</title>
+			</Helmet>
 			{loading ? (
 				<Loader>Loading...</Loader>
 			) : (

@@ -76,7 +76,6 @@ const App = () => {
 		<QueryClientProvider client={queryClient}>
 			<SwitchThemeProvider>
 				<Helmet>
-					<title>Hi! This is Test!</title>
 					<style>
 						@import
 						url('https://fonts.googleapis.com/css2?family=Gajraj+One&family=Roboto:wght@400;700&display=swap');
