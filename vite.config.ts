@@ -5,7 +5,7 @@ export default ({ mode }) => {
 	process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
 	return defineConfig({
 		plugins: [react()],
-		base: '/nomadcoderChallenge_Crypto-Tracker/',
+		base: '/nomadcodersStudy_Crypto-Tracker/',
 		// define: {
 		// 	'process.env': {},
 		// },
